@@ -1,1 +1,0 @@
-web: gunicorn imdb_movie.wsgi
