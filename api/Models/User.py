@@ -4,6 +4,16 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from api.helpers.media_helper import get_media_url
 
+from django.db import models
+
+
+class BaseAbstract(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -54,7 +64,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, BaseAbstract):
     name = models.CharField(max_length=200, default=str(), blank=True, null=True)
     email = models.EmailField(unique=True, blank=True, null=True)
     dob = models.DateField()
@@ -62,8 +72,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
 
