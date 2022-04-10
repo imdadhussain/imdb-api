@@ -65,9 +65,12 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseAbstract):
+    """
+    User model : Table for Movies
+    """
     name = models.CharField(max_length=200, default=str(), blank=True, null=True)
-    email = models.EmailField(unique=True, blank=True, null=True)
-    dob = models.DateField()
+    email = models.EmailField(unique=True, blank=True, null=True, db_index=True)
+    dob = models.DateField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

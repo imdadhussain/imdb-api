@@ -7,7 +7,6 @@ from api.models import User
 
 
 class SignInView(APIView):
-
     def post(self, request):
         data = request.data
         email = data.get('email')

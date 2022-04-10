@@ -7,7 +7,7 @@ class Director(BaseAbstract):
     """
     Director model : Table for movie director
     """
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, unique=True, db_index=True)
 
     class Meta:
         verbose_name = "Director"

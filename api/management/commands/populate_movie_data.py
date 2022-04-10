@@ -1,9 +1,9 @@
 import json
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.conf import settings
 
-from ...models import Movie, Genre
+from ...models import Movie, Genre, Director
 
 
 class Command(BaseCommand):
@@ -19,15 +19,21 @@ class Command(BaseCommand):
         with open(filepath, 'r') as f:
             raw_data = f.read()
             data = json.loads(raw_data)
-            k = {}
             for movie_item in data:
                 total_movies += 1
-                k['name'] = movie_item.get('name')
-                k['popularity'] = movie_item.get('99popularity')
-                k['director'] = movie_item.get('director')
-                k['imdb_score'] = movie_item.get('imdb_score')
-                movie, movie_created = Movie.objects.get_or_create(**k)
-                if movie_created:
+                director, director_created = Director.objects.get_or_create(name=movie_item.get('director'))
+                if Movie.objects.filter(name=movie_item.get('name')).filter().exists():
+                    movie.popularity = movie_item.get('99popularity')
+                    movie.director = director
+                    movie.imdb_score = movie_item.get('imdb_score')
+
+                else:
+                    movie = Movie.objects.create(
+                        name=movie_item.get('name'),
+                        imdb_score=movie_item.get('imdb_score'),
+                        popularity=movie_item.get('99popularity'),
+                        director=director
+                    )
                     total_movie_created += 1
                 genre_list = movie_item.get('genre')
                 # create genre for each genre in list and attach to current movie
@@ -43,3 +49,4 @@ class Command(BaseCommand):
               f"Total Movies Created - {total_movie_created}\n"
               f"Total Genre Created - {total_genre_created}\n"
               )
+        self.stdout.write(self.style.SUCCESS('Successfully populated the database'))

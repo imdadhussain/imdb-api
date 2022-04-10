@@ -7,7 +7,7 @@ class Genre(BaseAbstract):
     """
     Genre model : Table for movie Genres
     """
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, unique=True, db_index=True)
 
     class Meta:
         verbose_name = "Genre"

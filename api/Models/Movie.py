@@ -7,9 +7,9 @@ from .User import BaseAbstract
 
 class Movie(BaseAbstract):
     """
-    Movie model : model for Movies
+    Movie model : Table for Movies
     """
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, unique=True, db_index=True)
     imdb_score = models.FloatField()
     popularity = models.FloatField()
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
