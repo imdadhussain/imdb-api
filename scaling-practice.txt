@@ -1,0 +1,34 @@
+Scaling Problem Practice for Any Application
+
+- Vertical scaling of app server and Database server
+    - (This can be very first approach that can be implemented inorder to handle more traffic e.g more cores, RAM, etc)
+
+- Horizontal scaling of app
+    - (Deploying the app server on multiple servers)
+
+- Load balancer (NGINX)
+    - (Distibute traffic between group of app servers via load balancer)
+
+- Caching - Redis Backend
+    - (API Response Caching for about 3 - 5 seconds inorder to avoid querying the primary database, fast response will be achievable via caching)
+
+- Deploy App and database on same network
+
+- Database indexing
+    - (Create indexes on columns keeping in mind the most called query)
+
+- Database master-slave replication
+    - (With read-only slaves to offload reads from master, as in our case write traffic is less as compare to reads)
+
+- Database Sharding
+    - (Ideal for transactional scenario, where write and update queries are in more higher volume)
+
+- Splitting the api (app) into microservices
+
+- (Identify and reduce app server CPU and memory usage if continuously consuming CPU)
+
+- In terms of maintenance without service down time we should be able to uprade and downgrade server resources independently
+
+- Docker & Kubernetes
+    - using docker for prod deployment(easy to deploy and scale)
+    - Kubernetes to manage containers and number of replicas
