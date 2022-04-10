@@ -3,7 +3,12 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
+#db.sqlite3
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
