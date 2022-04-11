@@ -16,12 +16,8 @@ class MoviesList(generics.ListAPIView):
     """
     List searching movies.
     """
-    #queryset = Movie.objects.all().order_by('-created_at')
     serializer_class = MovieSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    #pagination_class = LimitOffsetPagination
-    # filter_backends = [filters.SearchFilter]
-    # search_fields = ['name', 'director__name', 'genre__name']
 
     def get_queryset(self):
         queryset = Movie.objects.all().order_by('-created_at')
@@ -56,6 +52,14 @@ class MoviesList(generics.ListAPIView):
         genre = request.query_params.get('genre')
         if genre:
             queryset = queryset.filter(genre__name__icontains=genre)
+        imdb_score = request.query_params.get('imdb_score')
+        if imdb_score:
+            queryset = queryset.filter(imdb_score=imdb_score)
+
+        popularity = request.query_params.get('popularity')
+        if popularity:
+            queryset = queryset.filter(popularity=popularity)
+
         queryset = self.paginate_queryset(queryset)
 
         serializer = self.serializer_class(queryset, many=True)
