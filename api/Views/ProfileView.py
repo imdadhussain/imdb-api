@@ -1,14 +1,14 @@
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import MultiPartParser
 
 from api.models import User
 from api.Serializers import ProfileSerializer
 
 
-class ProfileView(APIView):
+class ProfileView(GenericAPIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     serializer_class = ProfileSerializer

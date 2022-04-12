@@ -1,4 +1,4 @@
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
@@ -10,7 +10,7 @@ from api.models import Genre
 from api.permissions import IsAdmin
 
 
-class GenreView(APIView):
+class GenreView(GenericAPIView):
     authentication_classes = (TokenAuthentication,)
     serializer_class = GenreSerializer
     permission_classes = (IsAdmin, IsAuthenticated,)

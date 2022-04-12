@@ -1,4 +1,4 @@
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
@@ -10,7 +10,7 @@ from api.models import Director
 from api.permissions import IsAdmin
 
 
-class DirectorView(APIView):
+class DirectorView(GenericAPIView):
     authentication_classes = (TokenAuthentication,)
     serializer_class = DirectorSerializer
     permission_classes = (IsAdmin, IsAuthenticated,)

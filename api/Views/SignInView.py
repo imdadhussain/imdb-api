@@ -1,12 +1,15 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 
 from api.helpers.auth import password_auth
+from api.Serializers import SignInSerializer
 from api.models import User
 
 
-class SignInView(APIView):
+class SignInView(GenericAPIView):
+    serializer_class = SignInSerializer
+
     def post(self, request):
         data = request.data
         email = data.get('email')
