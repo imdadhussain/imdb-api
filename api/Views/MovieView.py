@@ -1,18 +1,15 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import generics
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework import filters
+from rest_framework.generics import GenericAPIView, ListAPIView
 
 from api.permissions import IsAdmin
 from api.models import Movie, Director
 from api.Serializers import MovieSerializer
 
 
-class MoviesList(generics.ListAPIView):
+class MoviesList(ListAPIView):
     """
     List searching movies.
     """
@@ -66,7 +63,7 @@ class MoviesList(generics.ListAPIView):
         return Response(data={"movie": serializer.data}, status=status.HTTP_200_OK)
 
 
-class MovieView(APIView):
+class MovieView(GenericAPIView):
     """Handle creating, updating and deleting movies"""
     authentication_classes = (TokenAuthentication, )
     serializer_class = MovieSerializer

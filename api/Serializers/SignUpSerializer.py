@@ -49,3 +49,12 @@ class SignUpSerializer(serializers.Serializer):
     def to_representation(self, instance):
         user_dict = instance.json()
         return user_dict
+
+
+class SignInSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(allow_blank=False)
+    password = serializers.CharField(required=True, allow_null=False)
+
+    class Meta:
+        model = User
+        fields = ('email', 'password',)

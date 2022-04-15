@@ -1,12 +1,12 @@
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
 from api.Serializers import SignUpSerializer
 
 
-class SignUpView(APIView):
+class SignUpView(GenericAPIView):
     serializer_class = SignUpSerializer
 
     def post(self, request):
