@@ -7,7 +7,8 @@ from rest_framework.generics import GenericAPIView, ListAPIView
 from api.permissions import IsAdmin
 from api.models import Movie, Director
 from api.Serializers import MovieSerializer
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 class MoviesList(ListAPIView):
     """
@@ -35,6 +36,17 @@ class MoviesList(ListAPIView):
         queryset = queryset[start: end]
         return queryset
 
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter("name", openapi.IN_QUERY, description="Movie Name", type=openapi.TYPE_STRING),
+            openapi.Parameter("director", openapi.IN_QUERY, description="Director Name", type=openapi.TYPE_STRING),
+            openapi.Parameter("genre", openapi.IN_QUERY, description="Genre Name", type=openapi.TYPE_STRING),
+            openapi.Parameter("imdb_score", openapi.IN_QUERY, description="Imdb Score", type=openapi.TYPE_NUMBER),
+            openapi.Parameter("popularity", openapi.IN_QUERY, description="Popularity", type=openapi.TYPE_NUMBER),
+            openapi.Parameter("page", openapi.IN_QUERY, description="Page", type=openapi.TYPE_INTEGER),
+            openapi.Parameter("size", openapi.IN_QUERY, description="Size", type=openapi.TYPE_INTEGER)
+        ],
+    )
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
 
