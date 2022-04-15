@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2^3(lt5g9$2!z2&ax%g0j68&xf8!37crp_*@gca2hinxcg(n)8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'https://imdbmovie-api.herokuapp.com']
 
